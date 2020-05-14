@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GTBaseSdk.iml" filepath="$PROJECT_DIR$/GTBaseSdk.iml" group="GTBaseSdk" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GeeSdk.iml" filepath="$PROJECT_DIR$/.idea/GeeSdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="GTBaseSdk/app" />
+      <module fileurl="file://$PROJECT_DIR$/geetolsdk/geetolsdk.iml" filepath="$PROJECT_DIR$/geetolsdk/geetolsdk.iml" group="GTBaseSdk/geetolsdk" />
+    </modules>
+  </component>
+</project>
