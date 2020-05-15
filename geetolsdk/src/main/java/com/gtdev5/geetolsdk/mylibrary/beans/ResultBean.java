@@ -8,9 +8,22 @@ import java.io.Serializable;
  * 公共返回参数
  */
 public class ResultBean implements Serializable {
-    private boolean issucc;            //调用是否成功
+    /**
+     * 是否调用成功
+     */
+    private boolean issucc;
+    /**
+     * 错误提示
+     */
     private String msg;
+    /**
+     * 错误代码
+     */
     private String code;
+    /**
+     * 调用时长
+     */
+    private long total;
 
     public boolean isIssucc() {
         return issucc;
@@ -34,5 +47,13 @@ public class ResultBean implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 }
