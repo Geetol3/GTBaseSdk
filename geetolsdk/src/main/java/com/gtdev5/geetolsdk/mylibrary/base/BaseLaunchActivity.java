@@ -177,7 +177,7 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
 
                 @Override
                 public void onSuccess(Response response, UpdateBean o) {
-                    if (o != null && o.getIssucc()) {
+                    if (o != null && o.isIssucc()) {
                         // 数据获取成功跳转到下个页面
                         jumpToNext();
                     } else {

@@ -3,7 +3,7 @@ package com.gtdev5.geetolsdk.mylibrary.util;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-import com.gtdev5.geetolsdk.mylibrary.initialization.GeetolSDK;
+import com.gtdev5.geetolsdk.mylibrary.initialization.GTBaseSdk;
 
 /**
  * Created by cheng
@@ -24,7 +24,7 @@ public class ToastUtils {
 
 
         }else {
-            Log.e(GeetolSDK.TAG,"未初始化lib");
+            Log.e(GTBaseSdk.TAG,"未初始化lib");
             return;
         }
     }

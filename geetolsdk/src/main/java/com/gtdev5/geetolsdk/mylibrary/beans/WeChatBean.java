@@ -1,60 +1,55 @@
 package com.gtdev5.geetolsdk.mylibrary.beans;
 
-import java.io.Serializable;
-
 /**
- * Info     ： Create by Zeoy
- * Introduce： 支付新接口回调实体类
- * Date     ： 2018/9/7
+ * Created by zl
+ * 2020/05/18
+ * 微信返回参数
  */
-public class OdResultBean implements Serializable{
-
+public class WeChatBean extends ResultBean {
     /**
-     * appid : wx01c61151a96421a7
-     * amount : 0.01
-     * timestramp : 1535420549
-     * nonce_str : BJJCTyKSerRKWRXwUtXDa7DC
-     * package_str : Sign=WXPay
-     * sign : 08F701BDB0392A59C4510226CB360162
-     * qrcode :
-     * mweburl :
-     * partnerId : 1462965102
-     * prepayid : wx28094229306750ba5586a6d63436360427
-     * issucc : true
-     * msg :
-     * code :
+     * 微信appid
      */
-
- /*   private boolean issucc;
-    private String msg;
-    private String code;
     private String appid;
-    private float amount;
-    private String package_str;*/
-
-    private String appid;
+    /**
+     * 金额
+     */
     private String amount;
+    /**
+     * 时间戳
+     */
     private String timestramp;
+    /**
+     * 随机数
+     */
     private String nonce_str;
+    /**
+     * 固定值 sign=WXPay
+     */
     private String package_str;
+    /**
+     * 签名
+     */
     private String sign;
-
-    public String getSign_str() {
-        return sign_str;
-    }
-
-    public void setSign_str(String sign_str) {
-        this.sign_str = sign_str;
-    }
-
+    /**
+     * 签名字符串
+     */
     private String sign_str;
+    /**
+     * 可将该数值生成二维码展示出来进行扫码支付
+     */
     private String qrcode;
+    /**
+     * 为拉起微信支付收银台的中间页面，可通过访问该url来拉起微信客户端，完成支付,mweb_url的有效期为5分钟。
+     */
     private String mweburl;
+    /**
+     * 微信商户号
+     */
     private String partnerId;
+    /**
+     * 预支付单id
+     */
     private String prepayid;
-    private boolean issucc;
-    private String msg;
-    private String code;
 
     public String getAppid() {
         return appid;
@@ -104,6 +99,14 @@ public class OdResultBean implements Serializable{
         this.sign = sign;
     }
 
+    public String getSign_str() {
+        return sign_str;
+    }
+
+    public void setSign_str(String sign_str) {
+        this.sign_str = sign_str;
+    }
+
     public String getQrcode() {
         return qrcode;
     }
@@ -135,29 +138,4 @@ public class OdResultBean implements Serializable{
     public void setPrepayid(String prepayid) {
         this.prepayid = prepayid;
     }
-
-    public boolean isIssucc() {
-        return issucc;
-    }
-
-    public void setIssucc(boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
 }

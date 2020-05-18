@@ -3,15 +3,26 @@ package com.gtdev5.geetolsdk.mylibrary.beans;
 import java.io.Serializable;
 
 /**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/24 11:59
+ * Created by zl
+ * 2020/05/18
+ * 开关
  */
-
-public class Swt  implements Serializable {
+public class Swt implements Serializable {
+    /**
+     * 开关名称
+     */
     private String name;
+    /**
+     * 开关代号
+     */
     private String code;
+    /**
+     * 值1的值
+     */
     private int val1;
+    /**
+     * 值2的值
+     */
     private String val2;
 
     public String getName() {

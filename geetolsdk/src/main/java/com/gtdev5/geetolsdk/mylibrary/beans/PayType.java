@@ -1,9 +1,9 @@
 package com.gtdev5.geetolsdk.mylibrary.beans;
 
 /**
- * Info     ： Create by Zeoy
- * Introduce：支付类型枚举
- * Date     ： 2019/3/11
+ * Created by zl
+ * 2020/05/18
+ * 支付枚举类型
  */
 public enum PayType {
     BOTH_ZFB_WECHAT,//支付宝和微信都有

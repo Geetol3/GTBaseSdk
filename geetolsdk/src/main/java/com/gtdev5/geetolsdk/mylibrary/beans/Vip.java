@@ -3,16 +3,30 @@ package com.gtdev5.geetolsdk.mylibrary.beans;
 import java.io.Serializable;
 
 /**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/24 17:25
+ * Created by zl
+ * 2020/05/18
+ * vip信息
  */
-
 public class Vip implements Serializable {
+    /**
+     * vip等级
+     */
     private String viplevel;
+    /**
+     * 购买个数(多开类)
+     */
     private int count;
+    /**
+     * 购买时间
+     */
     private String time;
+    /**
+     * 是否过期
+     */
     private boolean isout;
+    /**
+     * vip标签
+     */
     private String viptag;
     /**
      * 用户注册时间

@@ -5,7 +5,7 @@ package com.gtdev5.geetolsdk.mylibrary.beans;
  * 2020/05/14
  * 支付宝返回参数
  */
-public class ApliyBean extends ResultBean {
+public class AlipayBean extends ResultBean {
     /**
      * id
      */

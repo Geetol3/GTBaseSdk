@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 
-import com.gtdev5.geetolsdk.mylibrary.initialization.GeetolSDK;
+import com.gtdev5.geetolsdk.mylibrary.initialization.GTBaseSdk;
 
 /**
  * Created by cheng
@@ -21,7 +21,7 @@ public class CPResourceUtils {
         if (context != null){
             mContext = context;
         }else {
-            Log.e(GeetolSDK.TAG,"未初始化lib");
+            Log.e(GTBaseSdk.TAG,"未初始化lib");
             return;
         }
     }

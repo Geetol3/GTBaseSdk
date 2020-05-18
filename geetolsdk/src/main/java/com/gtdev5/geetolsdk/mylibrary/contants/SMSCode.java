@@ -1,8 +1,8 @@
 package com.gtdev5.geetolsdk.mylibrary.contants;
 
 /**
- * Created by ZL on 2019/11/11
- *
+ * Created by zl
+ * 2020/05/18
  * 短信验证码模板代号
  */
 public class SMSCode {

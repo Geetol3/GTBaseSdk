@@ -5,15 +5,18 @@ import java.io.IOException;
 import okhttp3.Request;
 
 /**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/4 9:41
- *          回调接口
+ * Created by zl
+ * 2020/05/18
+ * 数据回调
  */
-
 public interface DataCallBack {
+    /**
+     * 失败
+     */
+    void requestFailure(Request request, IOException io);
 
-    void requestFailure(Request request, IOException io);//失败
-
-    void requestSuceess(String result) throws Exception;//成功
+    /**
+     * 成功
+     */
+    void requestSuceess(String result) throws Exception;
 }

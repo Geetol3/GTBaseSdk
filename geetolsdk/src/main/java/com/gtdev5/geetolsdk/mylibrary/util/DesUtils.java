@@ -3,6 +3,7 @@ package com.gtdev5.geetolsdk.mylibrary.util;
 import android.content.Context;
 import android.os.Build;
 
+import com.gtdev5.geetolsdk.mylibrary.beans.XResp;
 import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Decoder;
 import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Encoder;
 
@@ -92,5 +93,15 @@ public class DesUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 获取解码实体类
+     * @param fileName 文件名
+     */
+    public static XResp getXResp(Context context, String fileName) throws Exception{
+        String hostConfig = getFromAssets(context, fileName);
+        String result = decode(hostConfig, fileName.substring(0, 8), fileName.substring(0, 8));
+        return GsonUtils.getFromClass(result, XResp.class);
     }
 }

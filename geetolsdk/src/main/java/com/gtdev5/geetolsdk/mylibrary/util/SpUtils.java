@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.gtdev5.geetolsdk.mylibrary.initialization.GeetolSDK;
+import com.gtdev5.geetolsdk.mylibrary.initialization.GTBaseSdk;
 
 
 /**
@@ -50,7 +50,7 @@ public class SpUtils {
         if (mComtext == null) {
             mComtext = context;
         } else {
-            Log.e(GeetolSDK.TAG, "未初始化lib");
+            Log.e(GTBaseSdk.TAG, "未初始化lib");
             return;
         }
 

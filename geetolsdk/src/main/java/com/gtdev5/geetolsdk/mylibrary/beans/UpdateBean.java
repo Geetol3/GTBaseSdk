@@ -1,55 +1,63 @@
 package com.gtdev5.geetolsdk.mylibrary.beans;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/24 11:00
- *      更新数据类
+ * Created by zl
+ * 2020/05/18
+ * 数据更新
  */
+public class UpdateBean extends ResultBean {
+    /**
+     * vip信息
+     */
+    private Vip vip;
+    /**
+     * 图片广告信息(后台配置)
+     */
+    private List<Ads> ads;
+    /**
+     * 会员购买信息(后台配置)
+     */
+    private List<Gds> gds;
+    /**
+     * 应用内开关(后台配置)
+     */
+    private List<Swt> swt;
+    /**
+     * 客服联系方式(后台配置)
+     */
+    private Contract contract;
+    /**
+     * 帮助链接(帮助文档后台配置)
+     */
+    private String hpurl;
+    /**
+     * 微信appid
+     */
+    private Config config;
+    /**
+     * 分享链接
+     */
+    private String share_url;
+    /**
+     * 限制地址
+     */
+    private List<Region> region;
+    /**
+     * ip地址
+     */
+    private String ip;
 
-public class UpdateBean implements Serializable {
-    private Vip vip;                //vip信息
-    private Boolean issucc;         //调用是否成功
-    private String msg;
-    private String code;
-    private List<Ads> ads;          //广告信息  不同位置的广告信息都在此 Pos表示不同位置  需后台设置
-    private List<Gds> gds;          //商品信息（会员）
-    private List<Swt> swt;           //开关   需要后台设置
-    private Contract contract;        //客服联系信息
-    private String hpurl;              //帮助链接
-    private Config config;             //微信appid
-    private String share_url;          //分享链接
-    private List<Region> region;       //限制地址
-    private String ip;                 //ip地址
-
-    public UpdateBean(){
+    public UpdateBean() {
     }
 
-    public Boolean getIssucc() {
-        return issucc;
+    public Vip getVip() {
+        return vip;
     }
 
-    public void setIssucc(Boolean issucc) {
-        this.issucc = issucc;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
+    public void setVip(Vip vip) {
+        this.vip = vip;
     }
 
     public List<Ads> getAds() {
@@ -90,14 +98,6 @@ public class UpdateBean implements Serializable {
 
     public void setHpurl(String hpurl) {
         this.hpurl = hpurl;
-    }
-
-    public Vip getVip() {
-        return vip;
-    }
-
-    public void setVip(Vip vip) {
-        this.vip = vip;
     }
 
     public Config getConfig() {

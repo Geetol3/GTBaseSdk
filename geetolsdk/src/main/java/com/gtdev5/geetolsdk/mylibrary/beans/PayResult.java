@@ -5,11 +5,20 @@ import android.text.TextUtils;
 import java.util.Map;
 
 /**
- * 2018/1/26 15:21
+ * Created by zl
+ * 2020/05/18
+ * 支付宝支付结果回调
  */
-
 public class PayResult {
+    /**
+     * 支付回调状态码
+     * 9000：支付成功 8000：正在处理中 4000：订单支付失败 5000：重复请求 6001：已取消支付
+     * 6002：网络连接出错 6004：正在处理中
+     */
     private String resultStatus;
+    /**
+     * 回调结果
+     */
     private String result;
     private String memo;
 
@@ -17,7 +26,6 @@ public class PayResult {
         if (rawResult == null) {
             return;
         }
-
         for (String key : rawResult.keySet()) {
             if (TextUtils.equals(key, "resultStatus")) {
                 resultStatus = rawResult.get(key);
@@ -35,25 +43,15 @@ public class PayResult {
                 + "};result={" + result + "}";
     }
 
-    /**
-     * @return the resultStatus
-     */
     public String getResultStatus() {
         return resultStatus;
     }
 
-    /**
-     * @return the memo
-     */
     public String getMemo() {
         return memo;
     }
 
-    /**
-     * @return the result
-     */
     public String getResult() {
         return result;
     }
-
 }
