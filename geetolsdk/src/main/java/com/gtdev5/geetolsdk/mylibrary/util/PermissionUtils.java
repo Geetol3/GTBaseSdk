@@ -1,4 +1,5 @@
 package com.gtdev5.geetolsdk.mylibrary.util;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,16 +20,17 @@ import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
-/**
- * Created by:zeoy
- * 日期:2018/1/15
- * 介绍:权限申请工具类
- */
 
+/**
+ * Created by zl
+ * 2020/05/19
+ * 权限申请工具类
+ */
 public class PermissionUtils {
-    public static final  int FILE_PERM_REQUESCODE = 1133;
-    public static final String[] permissions=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    Manifest.permission.READ_EXTERNAL_STORAGE};
+    public static final int FILE_PERM_REQUESCODE = 1133;
+    public static final String[] permissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
+
     /**
      * 检测权限
      *
@@ -41,15 +43,16 @@ public class PermissionUtils {
             return false;
     }
 
-    public static boolean checkPermission(Context context){
-        List<String> li = checkMorePermissions(context,permissions);
-        if (li.size()==0){
+    public static boolean checkPermission(Context context) {
+        List<String> li = checkMorePermissions(context, permissions);
+        if (li.size() == 0) {
             return true;
-        }else {
-            checkAndRequestMorePermissions(context,permissions,FILE_PERM_REQUESCODE);
+        } else {
+            checkAndRequestMorePermissions(context, permissions, FILE_PERM_REQUESCODE);
             return false;
         }
     }
+
     /**
      * 检测多个权限
      *
@@ -118,7 +121,6 @@ public class PermissionUtils {
         requestMorePermissions(context, permissionList, requestCode);
     }
 
-
     /**
      * 检测权限
      *
@@ -158,10 +160,8 @@ public class PermissionUtils {
                 callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
             else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
                 callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
-
         }
     }
-
 
     /**
      * 检测并申请权限
@@ -230,13 +230,10 @@ public class PermissionUtils {
             //　已禁止再次询问权限
             if (isBannedPermission)
                 callback.onUserHasAlreadyTurnedDown(permissions);
-
             else // 拒绝权限
                 callback.onUserHasAlreadyTurnedDownAndDontAsk(permissions);
         }
-
     }
-
 
     /**
      * 跳转到权限设置界面
@@ -262,9 +259,7 @@ public class PermissionUtils {
         void onHasPermission();
     }
 
-
     public interface PermissionCheckCallBack {
-
         /**
          * 用户已授予权限
          */
@@ -285,34 +280,31 @@ public class PermissionUtils {
         void onUserHasAlreadyTurnedDownAndDontAsk(String... permission);
     }
 
-
     /**
      * 判断是否已经获取 有权查看使用情况的应用程序 权限
      *
      * @param context
      * @return
      */
-    public static boolean isSatAccessPermissionSet(Context context){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+    public static boolean isSatAccessPermissionSet(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 PackageManager packageManager = context.getPackageManager();
-                ApplicationInfo info = packageManager.getApplicationInfo(context.getPackageName(),0);
+                ApplicationInfo info = packageManager.getApplicationInfo(context.getPackageName(), 0);
                 AppOpsManager appOpsManager = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
-                appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,info.uid,info.packageName);
-                return appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS,info.uid,info.packageName) == AppOpsManager.MODE_ALLOWED;
+                appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName);
+                return appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName) == AppOpsManager.MODE_ALLOWED;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
-        }else {
+        } else {
             return true;
         }
     }
 
     /**
      * 查看是存在查看使用情况的应用程序界面
-     *
-     * @return
      */
     public static boolean isNoOption(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
@@ -323,6 +315,4 @@ public class PermissionUtils {
         }
         return false;
     }
-
-
 }

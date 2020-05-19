@@ -81,7 +81,7 @@ public class DesUtil {
     /**
      * byte转Base64字符串
      */
-    public static String byteToBase64(byte[] bytes){
+    public static String byteToBase64(byte[] bytes) {
         if (bytes == null) {
             return "";
         }

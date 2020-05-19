@@ -24,6 +24,8 @@ import com.gtdev5.geetolsdk.mylibrary.util.Utils;
 import java.io.File;
 
 /**
+ * Created by zl
+ * 2020/05/19
  * 软件下载更新弹框
  */
 public class GTDownloadApkDialog extends BaseDialog {

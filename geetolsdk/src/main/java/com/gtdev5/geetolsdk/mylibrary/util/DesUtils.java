@@ -78,6 +78,7 @@ public class DesUtils {
 
     /**
      * 获取assets文件内容
+     *
      * @param fileName 文件名称
      */
     public static String getFromAssets(Context context, String fileName) {
@@ -97,9 +98,10 @@ public class DesUtils {
 
     /**
      * 获取解码实体类
+     *
      * @param fileName 文件名
      */
-    public static XResp getXResp(Context context, String fileName) throws Exception{
+    public static XResp getXResp(Context context, String fileName) throws Exception {
         String hostConfig = getFromAssets(context, fileName);
         String result = decode(hostConfig, fileName.substring(0, 8), fileName.substring(0, 8));
         return GsonUtils.getFromClass(result, XResp.class);

@@ -11,20 +11,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author 颜文（daoyi）
- * @version 1.0
- * @date 2019/8/27 15:29
+ * Created by zl
+ * 2020/05/19
+ * 获取mac地址，用于某次传mac地址后面改uuid的问题
  */
 public class MacUtils {
-
     private static Context mContext;
 
     public static void init(Context context) {
         if (context != null) {
             mContext = context;
-        } else {
-            Log.e("doayi", "未初始化lib");
-            return;
         }
     }
 

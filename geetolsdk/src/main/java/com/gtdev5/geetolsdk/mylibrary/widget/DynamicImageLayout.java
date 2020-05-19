@@ -13,11 +13,10 @@ import com.gtdev5.geetolsdk.mylibrary.util.ImageLoader;
 import java.util.List;
 
 /**
- * Created by ZL on 2019/3/15
- * <p>
+ * Created by zl
+ * 2020/05/19
  * 动态图片展示(仿微信朋友圈1-9张图)
  */
-
 public class DynamicImageLayout extends ViewGroup {
     /**
      * 显示的行数
@@ -162,8 +161,8 @@ public class DynamicImageLayout extends ViewGroup {
         }
         for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getContext());
-           // GlideEngine.getInstance().loadPhoto(getContext(), imageUrls.get(i), imageView);
-            ImageLoader.getInstance().loadImage(getContext(),  imageView,imageUrls.get(i));
+            // GlideEngine.getInstance().loadPhoto(getContext(), imageUrls.get(i), imageView);
+            ImageLoader.getInstance().loadImage(getContext(), imageView, imageUrls.get(i));
             addView(imageView);
             //点击查看大图
             final int index = i;

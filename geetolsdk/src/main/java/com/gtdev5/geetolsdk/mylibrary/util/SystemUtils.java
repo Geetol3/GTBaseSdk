@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -13,14 +12,11 @@ import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
 import java.util.Locale;
 
 /**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/22 10:06
- *      系统工具类
+ * Created by zl
+ * 2020/05/19
+ * 系统工具类
  */
-
 public class SystemUtils {
-
     /**
      * 获取当前手机系统语言。
      *
@@ -68,10 +64,8 @@ public class SystemUtils {
 
     /**
      * 获取手机屏幕宽度
-     * @param context
-     * @return
      */
-    public static int getWith(Context context){
+    public static int getWith(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         manager.getDefaultDisplay().getMetrics(dm);
@@ -80,10 +74,8 @@ public class SystemUtils {
 
     /**
      * 获取手机屏幕高度
-     * @param context
-     * @return
      */
-    public static int getHeight(Context context){
+    public static int getHeight(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         manager.getDefaultDisplay().getMetrics(dm);
@@ -92,26 +84,23 @@ public class SystemUtils {
 
     /**
      * 获取渠道信息
-     * @param context
-     * @return
      */
-    public static String getChannelInfo(Context context){
-
+    public static String getChannelInfo(Context context) {
         ApplicationInfo applicationInfo = null;
         try {
             applicationInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
                     PackageManager.GET_META_DATA);
-            if (applicationInfo==null){
+            if (applicationInfo == null) {
                 return Contants.CHANNEL_DEFAULT;
             }
             Bundle bundle = applicationInfo.metaData;
-            if (bundle == null){
+            if (bundle == null) {
                 return Contants.CHANNEL_DEFAULT;
             }
             String s = bundle.getString(Contants.CHANNEL);
-            if (Utils.isEmpty(s)){
+            if (Utils.isEmpty(s)) {
                 return Contants.CHANNEL_DEFAULT;
-            }else {
+            } else {
                 return s;
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -119,28 +108,4 @@ public class SystemUtils {
             return Contants.CHANNEL_DEFAULT;
         }
     }
-
-//    /**
-//     * 获取手机IMEI(需要“android.permission.READ_PHONE_STATE”权限)
-//     *
-//     * @return 手机IMEI
-//     */
-//    public static String getIMEI(Context ctx) {
-//        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Activity.TELEPHONY_SERVICE);
-//        if (tm != null) {
-//            if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//                return TODO;
-//            }
-//            return tm.getDeviceId();
-//        }
-//        return null;
-//    }
-
 }

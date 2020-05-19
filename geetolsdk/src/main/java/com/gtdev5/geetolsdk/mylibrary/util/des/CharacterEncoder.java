@@ -210,15 +210,15 @@ public abstract class CharacterEncoder {
      */
     private byte[] getBytes(ByteBuffer bb) {
         /*
-		 * This should never return a BufferOverflowException, as we're 213 *
-		 * careful to allocate just the right amount. 214
-		 */
+         * This should never return a BufferOverflowException, as we're 213 *
+         * careful to allocate just the right amount. 214
+         */
         byte[] buf = null;
 
-		/*
-		 * 218 * If it has a usable backing byte buffer, use it. Use only 219 *
-		 * if the array exactly represents the current ByteBuffer. 220
-		 */
+        /*
+         * 218 * If it has a usable backing byte buffer, use it. Use only 219 *
+         * if the array exactly represents the current ByteBuffer. 220
+         */
         if (bb.hasArray()) {
             byte[] tmp = bb.array();
             if ((tmp.length == bb.capacity()) && (tmp.length == bb.remaining())) {
@@ -228,16 +228,16 @@ public abstract class CharacterEncoder {
         }
 
         if (buf == null) {
-			/*
-			 * 232 * This class doesn't have a concept of encode(buf, len, off),
-			 * 233 * so if we have a partial buffer, we must reallocate 234 *
-			 * space. 235
-			 */
+            /*
+             * 232 * This class doesn't have a concept of encode(buf, len, off),
+             * 233 * so if we have a partial buffer, we must reallocate 234 *
+             * space. 235
+             */
             buf = new byte[bb.remaining()];
 
-			/*
-			 * 239 * position() automatically updated 240
-			 */
+            /*
+             * 239 * position() automatically updated 240
+             */
             bb.get(buf);
         }
 

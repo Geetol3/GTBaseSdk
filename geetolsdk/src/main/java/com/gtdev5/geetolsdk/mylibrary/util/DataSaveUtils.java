@@ -24,7 +24,6 @@ import java.util.Locale;
  *
  * 数据存储工具
  */
-
 public class DataSaveUtils {
     /**
      * app数据信息
@@ -221,10 +220,11 @@ public class DataSaveUtils {
 
     /**
      * 判断用户是否是老用户(用于截图系列新旧用户不同页面逻辑判断)
+     *
      * @param time 判断新旧用户的时间，格式yyyy-MM-dd HH:mm:ss
      */
     public boolean isOldUser(String time) {
-        SimpleDateFormat CurrentTime= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
+        SimpleDateFormat CurrentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
         Vip vip = getVip();
         if (vip != null) {
             try {

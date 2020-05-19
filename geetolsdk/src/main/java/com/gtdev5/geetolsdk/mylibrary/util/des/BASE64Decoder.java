@@ -123,12 +123,10 @@ public class BASE64Decoder extends CharacterDecoder {
             }
         } while (i == '\n' || i == '\r');
         decode_buffer[0] = (byte) i;
-
         i = readFully(inStream, decode_buffer, 1, rem - 1);
         if (i == -1) {
             throw new IOException();
         }
-
         if (rem > 3 && decode_buffer[3] == '=') {
             rem = 3;
         }
@@ -147,7 +145,6 @@ public class BASE64Decoder extends CharacterDecoder {
                 a = pem_convert_array[decode_buffer[0] & 0xff];
                 break;
         }
-
         switch (rem) {
             case 2:
                 outStream.write((byte) (((a << 2) & 0xfc) | ((b >>> 4) & 3)));
@@ -162,6 +159,5 @@ public class BASE64Decoder extends CharacterDecoder {
                 outStream.write((byte) (((c << 6) & 0xc0) | (d & 0x3f)));
                 break;
         }
-        return;
     }
 }

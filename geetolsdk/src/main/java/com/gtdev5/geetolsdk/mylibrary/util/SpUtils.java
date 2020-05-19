@@ -7,14 +7,11 @@ import android.util.Log;
 
 import com.gtdev5.geetolsdk.mylibrary.initialization.GTBaseSdk;
 
-
 /**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/5 8:29
+ * Created by zl
+ * 2020/05/19
  * 本地数据缓存工具
  */
-
 public class SpUtils {
     private volatile static SpUtils mInstance;
 
@@ -22,13 +19,10 @@ public class SpUtils {
     private SharedPreferences mPref;
 
     private SpUtils() {
-
     }
 
     /**
      * 单例模式
-     *
-     * @return
      */
     public static SpUtils getInstance() {
         if (mInstance == null) {
@@ -43,8 +37,6 @@ public class SpUtils {
 
     /**
      * 在Application里面初始化，就能全局调用
-     *
-     * @param context
      */
     public void init(Context context) {
         if (mComtext == null) {
@@ -53,7 +45,6 @@ public class SpUtils {
             Log.e(GTBaseSdk.TAG, "未初始化lib");
             return;
         }
-
         mPref = PreferenceManager.getDefaultSharedPreferences(mComtext);
     }
 
@@ -129,8 +120,6 @@ public class SpUtils {
 
     /**
      * 根据key清除value的缓存
-     *
-     * @param key
      */
     public void remove(String key) {
         SharedPreferences.Editor editor = mPref.edit();

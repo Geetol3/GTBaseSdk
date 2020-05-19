@@ -13,9 +13,10 @@ import android.view.View;
 
 import com.gtdev5.geetolsdk.R;
 
-
 /**
- * Created by daimajia on 14-4-30.
+ * Created by zl
+ * 2020/05/19
+ * 带数字进度条
  */
 public class NumberProgressBar extends View {
     /**

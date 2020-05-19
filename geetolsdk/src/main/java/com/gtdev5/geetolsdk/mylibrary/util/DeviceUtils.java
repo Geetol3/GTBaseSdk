@@ -25,7 +25,6 @@ import java.util.UUID;
  *
  * 设备信息获取工具
  */
-
 public class DeviceUtils {
     // 保存文件的路径
     private static final String CACHE_IMAGE_DIR = "aray/cache/devices";
@@ -68,8 +67,9 @@ public class DeviceUtils {
 
     /**
      * 对特定的内容进行 md5 加密
-     * @param message  加密明文
-     * @param upperCase  加密以后的字符串是是大写还是小写  true 大写  false 小写
+     *
+     * @param message   加密明文
+     * @param upperCase 加密以后的字符串是是大写还是小写  true 大写  false 小写
      */
     private static String getMD5(String message, boolean upperCase) {
         String md5str = "";

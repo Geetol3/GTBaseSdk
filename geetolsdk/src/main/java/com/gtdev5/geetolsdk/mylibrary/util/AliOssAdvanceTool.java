@@ -35,7 +35,6 @@ import java.io.OutputStream;
  *
  * 阿里oss文件操作工具升级版
  */
-
 public class AliOssAdvanceTool {
     private static AliOssAdvanceTool aliOssTool;
     private static AliOssBean aliOssBean;
@@ -75,9 +74,10 @@ public class AliOssAdvanceTool {
 
     /**
      * 保存bitmap到本地文件夹
+     *
      * @param bitmap 图片源
-     * @param name 图片名称
-     * @param path 要保存的路径
+     * @param name   图片名称
+     * @param path   要保存的路径
      */
     public boolean saveBitmap2File(Bitmap bitmap, String name, String path) {
         Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
@@ -96,8 +96,9 @@ public class AliOssAdvanceTool {
 
     /**
      * 下载文件
-     * @param name 文件名
-     * @param path 保存路径
+     *
+     * @param name     文件名
+     * @param path     保存路径
      * @param callBack 下载监听回调
      */
     public void downLoadFile(String name, String path, OssCallBack callBack) {
@@ -106,10 +107,11 @@ public class AliOssAdvanceTool {
 
     /**
      * 下载文件
+     *
      * @param bucketName 仓库地址
-     * @param name 文件名
-     * @param path 保存路径
-     * @param callback 下载监听回调
+     * @param name       文件名
+     * @param path       保存路径
+     * @param callback   下载监听回调
      */
     public void downLoadFile(String bucketName, String name, String path, OssCallBack callback) {
         downLoadFile(null, bucketName, name, path, null, callback);
@@ -117,11 +119,12 @@ public class AliOssAdvanceTool {
 
     /**
      * 下载文件
-     * @param bucketName 仓库地址
-     * @param name 文件名
-     * @param path 保存路径
+     *
+     * @param bucketName       仓库地址
+     * @param name             文件名
+     * @param path             保存路径
      * @param progressCallBack 下载进度回调
-     * @param callback 下载监听回调
+     * @param callback         下载监听回调
      */
     public void downLoadFile(String bucketName, String name, String path, ProgressCallBack progressCallBack, OssCallBack callback) {
         downLoadFile(null, bucketName, name, path, progressCallBack, callback);
@@ -129,11 +132,12 @@ public class AliOssAdvanceTool {
 
     /**
      * 下载文件
-     * @param size 文件大小
+     *
+     * @param size       文件大小
      * @param bucketName 仓库地址
-     * @param name 文件名
-     * @param path 保存路径
-     * @param callback 下载监听回调
+     * @param name       文件名
+     * @param path       保存路径
+     * @param callback   下载监听回调
      */
     public void downLoadFile(String size, String bucketName, String name, String path, OssCallBack callback) {
         downLoadFile(size, bucketName, name, path, null, callback);
@@ -141,12 +145,13 @@ public class AliOssAdvanceTool {
 
     /**
      * 下载文件
-     * @param size 文件大小
-     * @param bucketName 仓库地址
-     * @param name 文件名
-     * @param path 保存路径
+     *
+     * @param size             文件大小
+     * @param bucketName       仓库地址
+     * @param name             文件名
+     * @param path             保存路径
      * @param progressCallBack 下载进度回调
-     * @param callback 下载监听回调
+     * @param callback         下载监听回调
      */
     public void downLoadFile(String size, String bucketName, String name, String path, ProgressCallBack progressCallBack, OssCallBack callback) {
         GetObjectRequest request = new GetObjectRequest(bucketName, name);
@@ -157,7 +162,7 @@ public class AliOssAdvanceTool {
             // 异步下载，可以设置进度回调
             request.setProgressListener((request1, currentSize, totalSize) -> {
                 double progress = currentSize * 1.0 / totalSize * 100.f;
-                new Handler(Looper.getMainLooper()).post(() ->  progressCallBack.onProgressCallBack(progress));
+                new Handler(Looper.getMainLooper()).post(() -> progressCallBack.onProgressCallBack(progress));
             });
         }
         if (callback != null) {
@@ -182,8 +187,9 @@ public class AliOssAdvanceTool {
 
     /**
      * 上传文件
-     * @param name MD5文件名(小写)
-     * @param path 文件源路径
+     *
+     * @param name        MD5文件名(小写)
+     * @param path        文件源路径
      * @param ossCallBack 上传回调
      */
     public void uploadFile(String name, String path, OssCallBack ossCallBack) {
@@ -192,11 +198,12 @@ public class AliOssAdvanceTool {
 
     /**
      * 上传文件
-     * @param bucketName 仓库地址
-     * @param name MD5文件名(小写)
-     * @param path 文件源路径
+     *
+     * @param bucketName       仓库地址
+     * @param name             MD5文件名(小写)
+     * @param path             文件源路径
      * @param progressCallBack 下载进度回调
-     * @param callBack 上传回调
+     * @param callBack         上传回调
      */
     public void uploadFile(String bucketName, String name, String path, ProgressCallBack progressCallBack, OssCallBack callBack) {
         PutObjectRequest request = new PutObjectRequest(bucketName, name, path);
@@ -204,7 +211,7 @@ public class AliOssAdvanceTool {
             // 异步下载，可以设置进度回调
             request.setProgressCallback((request1, currentSize, totalSize) -> {
                 double progress = currentSize * 1.0 / totalSize * 100.f;
-                new Handler(Looper.getMainLooper()).post(() ->  progressCallBack.onProgressCallBack(progress));
+                new Handler(Looper.getMainLooper()).post(() -> progressCallBack.onProgressCallBack(progress));
             });
         }
         if (callBack != null) {
@@ -225,7 +232,8 @@ public class AliOssAdvanceTool {
 
     /**
      * 删除文件
-     * @param name 文件名
+     *
+     * @param name     文件名
      * @param callBack 删除回调
      */
     public void deleteFile(String name, OssCallBack callBack) {
@@ -234,9 +242,10 @@ public class AliOssAdvanceTool {
 
     /**
      * 删除文件
+     *
      * @param bucketName 仓库地址
-     * @param name 文件名
-     * @param callback 删除回调
+     * @param name       文件名
+     * @param callback   删除回调
      */
     public void deleteFile(String bucketName, String name, OssCallBack callback) {
         DeleteObjectRequest request = new DeleteObjectRequest(bucketName, name);
@@ -275,6 +284,7 @@ public class AliOssAdvanceTool {
 
     public interface OssCallBack {
         void onSuccess(String s);
+
         void onFailure(String s);
     }
 

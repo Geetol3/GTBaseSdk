@@ -28,13 +28,11 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 /**
  * Created by ZL on 2019/4/18
  *
  * 阿里云文件操作工具
  */
-
 public class AliOssTool {
     private static AliOssTool aliOssTool;
     private static AliOssBean aliOssBean;
@@ -75,7 +73,8 @@ public class AliOssTool {
 
     /**
      * 下载文件
-     * @param name 要下载的文件名称
+     *
+     * @param name     要下载的文件名称
      * @param savePath 要保存的文件地址
      */
     public void downLoadFile(String size, String name, String savePath, OssCallBack callBack) {
@@ -84,12 +83,13 @@ public class AliOssTool {
 
     /**
      * 下载文件
-     * @param size 需要缩放的图片大小
+     *
+     * @param size       需要缩放的图片大小
      * @param bucketName 设置仓库地址
-     * @param name 要下载的文件名称
-     * @param savePath 要保存的文件地址
-     * @param suffix 要保存的文件后缀
-     * 参数参考：https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.11186623.2.13.685d3331OwJyJD#concept-hxj-c4n-vdb
+     * @param name       要下载的文件名称
+     * @param savePath   要保存的文件地址
+     * @param suffix     要保存的文件后缀
+     *                   参数参考：https://help.aliyun.com/document_detail/44688.html?spm=a2c4g.11186623.2.13.685d3331OwJyJD#concept-hxj-c4n-vdb
      */
     public void downLoadFile(String size, String bucketName, String name, String savePath, String suffix, OssCallBack ossCallBack) {
         GetObjectRequest request = new GetObjectRequest(bucketName, name);
@@ -138,9 +138,10 @@ public class AliOssTool {
 
     /**
      * 保存bitmap到本地
+     *
      * @param bitmap 图片源
-     * @param name 图片名称
-     * @param path 要保存的地址
+     * @param name   图片名称
+     * @param path   要保存的地址
      * @param suffix 后缀名
      * @return
      */
@@ -161,6 +162,7 @@ public class AliOssTool {
 
     /**
      * 文件上传
+     *
      * @param name 名称
      * @param path 地址
      */
@@ -170,9 +172,10 @@ public class AliOssTool {
 
     /**
      * 上传文件
+     *
      * @param bucketName 仓库地址
-     * @param name 名称
-     * @param path 地址
+     * @param name       名称
+     * @param path       地址
      */
     public void upLoadFile(String bucketName, String name, String path, OssCallBack callBack) {
         PutObjectRequest request = new PutObjectRequest(bucketName, name, path);
@@ -213,6 +216,7 @@ public class AliOssTool {
 
     /**
      * 删除文件
+     *
      * @param name 要删除的名字
      */
     public void deleteFile(String name, OssCallBack ossCallBack) {
@@ -221,8 +225,9 @@ public class AliOssTool {
 
     /**
      * 删除文件
+     *
      * @param bucketName 仓库地址
-     * @param name 要删除的名字
+     * @param name       要删除的名字
      */
     public void deleteFile(String bucketName, String name, OssCallBack ossCallBack) {
         DeleteObjectRequest request = new DeleteObjectRequest(bucketName, name);
@@ -257,6 +262,7 @@ public class AliOssTool {
 
     public interface OssCallBack {
         void onSuccess(String s);
+
         void onFailure(String s);
     }
 

@@ -22,11 +22,10 @@ import com.gtdev5.geetolsdk.R;
 import com.gtdev5.geetolsdk.mylibrary.util.DensityUtils;
 
 /**
- * Created by ZL on 2019/10/30
- *
+ * Created by zl
+ * 2020/05/19
  * 居中的Dialog
  */
-
 public class CenterDialog extends AlertDialog implements View.OnClickListener {
     private int[] listenedItems;
     private int layoutResID;
@@ -112,8 +111,6 @@ public class CenterDialog extends AlertDialog implements View.OnClickListener {
 
     /**
      * 获取EditText内容
-     * @param layoutResID
-     * @return
      */
     public String getEditText(int layoutResID) {
         EditText editText = findViewById(layoutResID);
@@ -137,7 +134,6 @@ public class CenterDialog extends AlertDialog implements View.OnClickListener {
 
     /**
      * 设置文字顶部图片
-     * @param resId 图片资源
      */
     public void setTextDrawableTop(int layoutResID, int resId) {
         TextView textView = findViewById(layoutResID);
@@ -170,10 +166,8 @@ public class CenterDialog extends AlertDialog implements View.OnClickListener {
     }
 
     /**
-     * Created by Administrator on 2018\1\26 0026.
      * 带listview的dialog实现回调监听
      */
-
     public interface OnDialogItemClickListener {
         public void onItemClick(int position, long id);
     }

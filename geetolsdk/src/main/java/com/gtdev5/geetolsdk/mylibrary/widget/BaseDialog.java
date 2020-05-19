@@ -10,24 +10,20 @@ import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
 import com.gtdev5.geetolsdk.R;
 
 /**
- * Created by cheng
- * PackageName APP_Lock
- * 2018/1/8 9:28
- *          Dialog基类
+ * Created by zl
+ * 2020/05/19
+ * Dialog基类
  */
-
 public abstract class BaseDialog extends Dialog {
-
     protected Context mContext;
     protected DisplayMetrics dm;
     protected float widthScale = 1;
-
     protected AnimatorSet enterAnim;
     protected AnimatorSet exitAnim;
-
     protected int width;
 
     public BaseDialog(@NonNull Context context) {
@@ -38,7 +34,7 @@ public abstract class BaseDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getContentViewId() <= 0){
+        if (getContentViewId() <= 0) {
             new RuntimeException("layout resId undefind");
         }
         setContentView(getContentViewId());
@@ -51,78 +47,69 @@ public abstract class BaseDialog extends Dialog {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
-
         widthScale = setWidthScale();
-        if (widthScale == 0){
+        if (widthScale == 0) {
             width = ViewGroup.LayoutParams.WRAP_CONTENT;
-        }else {
+        } else {
             width = (int) (dm.widthPixels * widthScale);
         }
-
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         layoutParams.width = width;
         window.setAttributes(layoutParams);
-
         enterAnim = setEnterAnim();
         if (enterAnim != null) {
             enterAnim.addListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
-
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-
                 }
 
                 @Override
                 public void onAnimationCancel(Animator animation) {
-                superDismiss();
+                    superDismiss();
                 }
 
                 @Override
                 public void onAnimationRepeat(Animator animation) {
-
                 }
             });
             enterAnim.start();
         }
-
     }
 
     @Override
     public void dismiss() {
         exitAnim = setExitAnim();
-        if (exitAnim == null){
+        if (exitAnim == null) {
             superDismiss();
             return;
         }
         exitAnim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-            superDismiss();
+                superDismiss();
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-            superDismiss();
+                superDismiss();
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-
             }
         });
         exitAnim.start();
     }
 
-    public void superDismiss(){
+    public void superDismiss() {
         super.dismiss();
     }
 

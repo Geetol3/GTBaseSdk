@@ -50,4 +50,12 @@ public interface API {
      * 微信登录
      */
     public static String USER_WECHAT_LOGIN = "pub_wechat_login";
+
+    /**
+     * 获取接口url
+     * @param command 接口别名
+     */
+    public static String getUrl(String command) {
+        return "http://" + ApiConfig.getInstance().getHostUrl() + "/" + command;
+    }
 }

@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 /**
- * 带点击状态的textview
- * Created by huan on 2017/9/15.
+ * Created by zl
+ * 2020/05/19
+ * 自带点击效果的textview
  */
-
 public class PressedTextView extends android.support.v7.widget.AppCompatTextView {
     private float pressedScale;
     private AnimatorSet set;

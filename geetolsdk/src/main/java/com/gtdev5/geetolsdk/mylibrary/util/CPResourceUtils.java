@@ -7,124 +7,81 @@ import android.util.Log;
 import com.gtdev5.geetolsdk.mylibrary.initialization.GTBaseSdk;
 
 /**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/5 17:24
- *
- *      反射工具类
+ * Created by zl
+ * 2020/05/19
+ * 反射工具类
  */
-
 public class CPResourceUtils {
     private static Context mContext;
 
-    public static void init(Context context){
-        if (context != null){
+    public static void init(Context context) {
+        if (context != null) {
             mContext = context;
-        }else {
-            Log.e(GTBaseSdk.TAG,"未初始化lib");
-            return;
+        } else {
+            Log.e(GTBaseSdk.TAG, "未初始化lib");
         }
     }
 
     /**
-     *          通过反射获取layout
-     * @param paramString
-     * @return
+     * 通过反射获取layout
      */
-    public static int getLayoutId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"layout",mContext.getPackageName());
+    public static int getLayoutId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "layout", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取string
-     * @param paramString
-     * @return
+     * 通过反射获取string
      */
-    public static int getStringId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"string",mContext.getPackageName());
+    public static int getStringId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "string", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取drawable
-     * @param paramString
-     * @return
+     * 通过反射获取drawable
      */
-    public static int getDrableId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"drawable",mContext.getPackageName());
+    public static int getDrawableId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "drawable", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取style
-     * @param paramString
-     * @return
+     * 通过反射获取style
      */
-    public static int getStyleId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"style",mContext.getPackageName());
+    public static int getStyleId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "style", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取id
-     * @param paramString
-     * @return
+     * 通过反射获取id
      */
-    public static int getId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"id",mContext.getPackageName());
+    public static int getId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "id", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取color
-     * @param paramString
-     * @return
+     * 通过反射获取color
      */
-    public static int getColor(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"color",mContext.getPackageName());
+    public static int getColor(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "color", mContext.getPackageName());
     }
 
     /**
-     *          通过反射获取array
-     * @param paramString
-     * @return
+     * 通过反射获取array
      */
-    public static int getArrayId(String paramString){
-        return mContext.getResources().getIdentifier(paramString,"array",mContext.getPackageName());
+    public static int getArrayId(String paramString) {
+        return mContext.getResources().getIdentifier(paramString, "array", mContext.getPackageName());
     }
 
     /**
-     *          获取资源目录值
-     * @param key
-     * @return
+     * 获取资源目录值
      */
-    public static String getString(String key){
+    public static String getString(String key) {
         return mContext.getResources().getString(getStringId(key));
     }
 
     /**
-     *          获取设备标识码
-     * @return
+     * 获取设备标识码
      */
-    public static String getDevice(){
+    public static String getDevice() {
         return DeviceUtils.getSpDeviceId();
     }
-
-    /**
-     *          根据assets资源拿取id和key
-     * @return
-     */
-//    public static String getFromAssetsForIdKey(){
-//        try {
-//            String encoding = "GBK";
-//            InputStreamReader inputStreamReader = new InputStreamReader(mContext.getResources().getAssets().open("app.xml"),encoding);
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            String line = "";
-//            String result = "";
-//            while ((line = bufferedReader.readLine())!=null){
-//                result += line.toString().trim();
-//            }
-//            return result.trim();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return "";
-//    }
-
 }

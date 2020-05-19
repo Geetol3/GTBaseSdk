@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 /**
+ * Created by zl
+ * 2020/05/19
  * 自带点击效果的imageview
- * Created by huan on 2017/8/15.
  */
-
 public class PressedImageView extends android.support.v7.widget.AppCompatImageView {
     private float scaleSize;//按压颜色
 

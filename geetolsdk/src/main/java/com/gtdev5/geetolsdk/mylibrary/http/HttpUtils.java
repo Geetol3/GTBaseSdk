@@ -75,7 +75,6 @@ public class HttpUtils {
     private MessageDigest alga;
     private Map<String, String> resultMap;
     private Gson gson;
-    private String commonUrl;
 
     private HttpUtils() {
         try {
@@ -85,8 +84,6 @@ public class HttpUtils {
             mHandler = new Handler(Looper.getMainLooper());
             gson = new Gson();
             alga = MessageDigest.getInstance("SHA-1");
-            //初始化域名
-            commonUrl = ApiConfig.getInstance().getHostUrl();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,7 +142,7 @@ public class HttpUtils {
         boolean isFirst = true;
         switch (type) {
             case GET_HTTP_TYPE:
-                request = new Request.Builder().url(commonUrl + url).build();
+                request = new Request.Builder().url(API.getUrl(url)).build();
                 break;
             case POST_HTTP_TYPE:
                 /**
@@ -190,7 +187,7 @@ public class HttpUtils {
                     builder.add(key, value);
                 }
                 requestBody = builder.build();
-                request = new Request.Builder().url(commonUrl + url).post(requestBody).build();
+                request = new Request.Builder().url(API.getUrl(url)).post(requestBody).build();
                 break;
             case UPLOAD_HTTP_TYPE:
                 MultipartBody.Builder multipartBody = new MultipartBody.Builder("-----")
@@ -201,7 +198,7 @@ public class HttpUtils {
                     }
                     requestBody = multipartBody.build();
                 }
-                request = new Request.Builder().url(commonUrl + url).post(requestBody).build();
+                request = new Request.Builder().url(API.getUrl(url)).post(requestBody).build();
                 break;
             default:
                 break;
@@ -327,7 +324,7 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void postRegister(BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.REGISTER_DEVICE),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.REGISTER_DEVICE)),
                 MapUtils.getRegistMap(), callback);
     }
 
@@ -337,7 +334,7 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void postUpdate(BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.UPDATE),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.UPDATE)),
                 MapUtils.getCurrencyMap(), callback, API.UPDATE);
     }
 
@@ -347,7 +344,7 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void postNews(BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.GETNEW),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.GETNEW)),
                 MapUtils.getNewMap(), callback);
     }
 
@@ -361,7 +358,7 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void PostOdOrder(int type, int pid, float amount, int pway, BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.ORDER_OD),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.ORDER_OD)),
                 MapUtils.getOrder(type, pid, amount, pway), callback);
     }
 
@@ -374,7 +371,7 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void getVarCode(String tel, String tpl, String sms_sign, BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.GET_VARCODE),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.GET_VARCODE)),
                 MapUtils.getVarCode(tel, tpl, sms_sign), callback);
     }
 
@@ -384,7 +381,8 @@ public class HttpUtils {
      * @param callback 回调函数
      */
     public void getAliOss(BaseCallback callback) {
-        post(commonUrl + API.GET_ALIOSS, MapUtils.getCurrencyMap(), callback, API.GET_ALIOSS);
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.GET_ALIOSS)),
+                MapUtils.getCurrencyMap(), callback, API.GET_ALIOSS);
     }
 
     /**
@@ -396,7 +394,7 @@ public class HttpUtils {
      * @param callback
      */
     public void userCodeLogin(String tel, String smscode, String smskey, BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.USER_LOGIN_CODE),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.USER_LOGIN_CODE)),
                 MapUtils.getUserCodeLogin(tel, smscode, smskey), callback, API.USER_LOGIN_CODE);
     }
 
@@ -406,7 +404,7 @@ public class HttpUtils {
      * @param callback
      */
     public void checkLogin(BaseCallback callback) {
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.USER_LOGIN_CHECK),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.USER_LOGIN_CHECK)),
                 MapUtils.getCurrencyMap(), callback, API.USER_LOGIN_CHECK);
     }
 
@@ -415,7 +413,7 @@ public class HttpUtils {
      */
     public void wechatLogin(String open_id, String nickname, String sex, String headurl, BaseCallback callback) {
         alga.digest();
-        post(commonUrl + ApiConfig.getInstance().getCommand(API.USER_WECHAT_LOGIN),
+        post(API.getUrl(ApiConfig.getInstance().getCommand(API.USER_WECHAT_LOGIN)),
                 MapUtils.getWeChatLogin(open_id, nickname, sex, headurl), callback);
     }
 

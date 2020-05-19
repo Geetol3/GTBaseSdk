@@ -12,26 +12,19 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/5 10:49
- *          json解析工具
+ * Created by zl
+ * 2020/05/19
+ * json解析工具
  */
-
 public class GsonUtils {
-
     /**
-     *          解析对象
-     * @param json
-     * @param tClass
-     * @param <T>
-     * @return
+     * 解析对象
      */
-    public static <T> T getFromClass(String json,Class<T> tClass){
+    public static <T> T getFromClass(String json, Class<T> tClass) {
         T t = null;
         try {
             Gson gson = new Gson();
-            t = gson.fromJson(json,tClass);
+            t = gson.fromJson(json, tClass);
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }
@@ -39,28 +32,21 @@ public class GsonUtils {
     }
 
     /**
-     *          解析集合
-     * @param json
-     * @param tClass
-     * @param <T>
-     * @return
+     * 解析集合
      */
-    public static <T>List<T> getFromList(String json,Class<T> tClass){
+    public static <T> List<T> getFromList(String json, Class<T> tClass) {
         ArrayList list = new ArrayList();
-
         try {
             Gson gson = new Gson();
             JsonArray arry = (new JsonParser()).parse(json).getAsJsonArray();
             Iterator var5 = arry.iterator();
-
-            while(var5.hasNext()) {
-                JsonElement jsonElement = (JsonElement)var5.next();
+            while (var5.hasNext()) {
+                JsonElement jsonElement = (JsonElement) var5.next();
                 list.add(gson.fromJson(jsonElement, tClass));
             }
         } catch (Exception var7) {
             var7.printStackTrace();
         }
-
         return list;
     }
 
@@ -68,5 +54,4 @@ public class GsonUtils {
         Gson gson = new Gson();
         return gson.toJson(bean);
     }
-
 }

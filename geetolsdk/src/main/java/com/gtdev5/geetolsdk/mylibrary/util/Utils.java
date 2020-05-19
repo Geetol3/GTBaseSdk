@@ -37,83 +37,23 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by cheng
- * PackageName ModelTest
- * 2018/1/4 13:42
+ * Created by zl
+ * 2020/05/19
  * 工具类
  */
-
 public class Utils {
     private static MessageDigest digest;
-
-//    public static Map<String,String> stringMap = new HashMap<>();
-
-    /**
-     * 得到手机设备标识码
-     *
-     * @param context
-     * @return
-     */
-    @SuppressLint("MissingPermission")
-    public static String getDevice(Context context) {
-        String device = "";
-        Boolean getdevice = SpUtils.getInstance().getBoolean("getdevice", true);
-        try {
-            digest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-            if (getdevice) {
-                try {
-                    // 适配双卡情况
-                    Method method = tm.getClass().getMethod("getImei", int.class);
-                    device = (String) method.invoke(tm, 0);
-                } catch (Exception e) {
-                    device = tm.getDeviceId();
-                    e.printStackTrace();
-                }
-            } else {
-                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null) {
-                    device = SpUtils.getInstance().getString("getDevicekey");
-                }
-            }
-        } else {
-            if (getdevice) {
-                String yyyyMMdd = getDate("yyyyMMdd");
-                String stringRandom = getStringRandom(128);
-                String str = yyyyMMdd + stringRandom;
-                str = str.replace("\n", "");//去除换行
-                str = str.replace("\\s", "");//去除空格
-                digest.update(str.getBytes());
-                device = byte2hex(digest.digest());
-                SpUtils.getInstance().putString("getDevicekey", device);
-                SpUtils.getInstance().putBoolean("getdevice", false);
-            } else {
-                if (!SpUtils.getInstance().getString("getDevicekey").equals("") && SpUtils.getInstance().getString("getDevicekey") != null) {
-                    device = SpUtils.getInstance().getString("getDevicekey");
-                }
-            }
-        }
-        return device;
-    }
-
 
     /**
      * 生成随机数字和字母
      *
      * @param length 长度
-     * @return
      */
     public static String getStringRandom(int length) {
-
         String val = "";
         Random random = new Random();
-
         //参数length，表示生成几位随机数
         for (int i = 0; i < length; i++) {
-
             String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
             //输出字母还是数字
             if ("char".equalsIgnoreCase(charOrNum)) {
@@ -131,7 +71,6 @@ public class Utils {
      * 得到年月日
      *
      * @param type 格式
-     * @return
      */
     public static String getDate(String type) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(type);
@@ -141,9 +80,6 @@ public class Utils {
 
     /**
      * 判断字符串是否为空
-     *
-     * @param str
-     * @return
      */
     public static boolean isEmpty(String str) {
         if (str == null || str.equals("") || str.equals("null")) {
@@ -154,9 +90,6 @@ public class Utils {
 
     /**
      * 判断字符串不为空
-     *
-     * @param str
-     * @return
      */
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
@@ -164,9 +97,6 @@ public class Utils {
 
     /**
      * 数组转字符串
-     *
-     * @param b
-     * @return
      */
     public static String byte2hex(byte[] b) {
         String hs = "";
@@ -184,9 +114,6 @@ public class Utils {
 
     /**
      * 判断当前网络是否可用
-     *
-     * @param context
-     * @return
      */
     public static boolean isNetworkAvailable(Context context) {
         boolean result = false;
@@ -211,9 +138,6 @@ public class Utils {
 
     /**
      * 判断当前网络状态是否是wifi
-     *
-     * @param context
-     * @return
      */
     public static boolean isWifi(Context context) {
         boolean result = false;
@@ -237,30 +161,18 @@ public class Utils {
     }
 
     /**
-     * 判断是否是中国电信,联通,移动的正确电话号码
-     *
-     * @param phone
-     * @return
+     * 判断是否是合法手机号
      */
     public static boolean isPhone(String phone) {
         if (phone == null) {
             return false;
         }
-            /*
-	    移动：134、135、136、137、138、139、150、151、157(TD)、158、159、187、188
-	    联通：130、131、132、152、155、156、185、186
-	    电信：133、153、180、189、（1349卫通）
-	    */
-        String telRegex = "[1][3578]\\d{9}";
+        String telRegex = "[1][0123456789]\\d{9}";
         return phone.matches(telRegex);
     }
 
-
     /**
      * 判断是否已经获取 有权查看使用情况的应用程序 权限
-     *
-     * @param context
-     * @return
      */
     public static boolean isSatAccessPermissionSet(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -281,8 +193,6 @@ public class Utils {
 
     /**
      * 查看是存在查看使用情况的应用程序界面
-     *
-     * @return
      */
     public static boolean isNoOption(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -296,8 +206,6 @@ public class Utils {
 
     /**
      * 得到手机当前版本号
-     *
-     * @return
      */
     public static String getVersion(Context context) {
         String localVersion = "";
@@ -315,12 +223,10 @@ public class Utils {
      *
      * @param serverVersion 服务器版本号
      * @param localVersion  本地版本号
-     * @return
      */
     public static boolean VersionCompare(String serverVersion, String localVersion) {
         String[] server = serverVersion.split("[.]");
         String[] local = localVersion.split("[.]");
-
         for (int i = 0; i < server.length; i++) {
             if (i < local.length) {
                 int a = Integer.parseInt(server[i]);
@@ -338,26 +244,11 @@ public class Utils {
     }
 
     /**
-     * 某些软件有时候需要强行将本地设备id设置为指定值，一般用于需要登录的软件
-     *
-     * @param deviceID
-     */
-    public static void setLocalDeviceID(String deviceID) {
-        if (TextUtils.isEmpty(deviceID)) {
-            throw new IllegalArgumentException("设备id不能为空");
-        }
-        //这里传false  sdk里就会认为用户没有给权限
-        SpUtils.getInstance().putBoolean("getdevice", false);
-        //存下登录获取的设备id
-        SpUtils.getInstance().putString("getDevicekey", deviceID);
-    }
-
-    /**
      * 设置用户信息
      *
-     * @param userId 用户id
+     * @param userId  用户id
      * @param userKey 用户id
-     * @param img 头像数据
+     * @param img     头像数据
      */
     public static void setLoginInfo(String userId, String userKey, String img) {
         SpUtils.getInstance().putString(Contants.USER_ID, userId);
@@ -378,7 +269,6 @@ public class Utils {
 
     /**
      * 获取用户key
-     * @return
      */
     public static String getUserKey() {
         String uKey = SpUtils.getInstance().getString(Contants.USER_KEY);
@@ -390,7 +280,6 @@ public class Utils {
 
     /**
      * 获取用户头像
-     * @return
      */
     public static String getUserHead() {
         return SpUtils.getInstance().getString(Contants.USER_HEAD);
@@ -398,9 +287,6 @@ public class Utils {
 
     /**
      * 通过Base32将Bitmap转换成Base64字符串
-     *
-     * @param bitmap
-     * @return
      */
     public static String Bitmap2StrByBase64(Bitmap bitmap) {
         String reslut = "";
@@ -411,7 +297,6 @@ public class Utils {
                 /**
                  * 压缩只对保存有效果bitmap还是原来的大小
                  */
-                // bitmap = compressImage(bitmap);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 int options = 100;
                 while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于100kb,大于继续压缩
@@ -464,7 +349,6 @@ public class Utils {
 
     /**
      * 储存阿里云oss参数
-     * @param string
      */
     public static void setAliOssParam(String string) {
         SpUtils.getInstance().putString(Contants.ALI_OSS_PARAM, string);
@@ -501,7 +385,7 @@ public class Utils {
         }
         return aliOssBean;
     }
-    
+
     /**
      * 检测是否安装微信
      */
