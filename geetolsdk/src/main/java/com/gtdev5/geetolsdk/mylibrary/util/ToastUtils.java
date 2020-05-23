@@ -21,7 +21,7 @@ public class ToastUtils {
             mContext = context;
             mToast = new Toast(mContext);
         } else {
-            Log.e(GTBaseSdk.TAG, "未初始化lib");
+            LogUtils.e(GTBaseSdk.TAG, "未初始化lib");
         }
     }
 

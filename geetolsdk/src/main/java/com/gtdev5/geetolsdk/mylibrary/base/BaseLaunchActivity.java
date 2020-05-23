@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.gtdev5.geetolsdk.R;
 import com.gtdev5.geetolsdk.mylibrary.beans.ResultBean;
@@ -19,6 +18,7 @@ import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
 import com.gtdev5.geetolsdk.mylibrary.http.HttpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.PermissionUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.SpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.ToastUtils;
@@ -225,12 +225,12 @@ public abstract class BaseLaunchActivity extends BaseGTActivity {
                     public void onSuccess(Response response, ResultBean o) {
                         if (o != null) {
                             if (o.isIssucc()) {
-                                Log.e("校验登录:", "已经登录过");
+                                LogUtils.e("校验登录:", "已经登录过");
                             } else {
                                 if (!TextUtils.isEmpty(o.getMsg())) {
                                     ToastUtils.showShortToast(o.getMsg());
                                 }
-                                Log.e("校验登录:", "已在别机登录，本机下线");
+                                LogUtils.e("校验登录:", "已在别机登录，本机下线");
                             }
                         }
                     }

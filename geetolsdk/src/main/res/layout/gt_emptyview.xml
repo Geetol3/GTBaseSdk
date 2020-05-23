@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:text="暂无数据"
         android:textSize="15sp"
-        android:textColor="@color/gt_text_color2"
+        android:textColor="#333333"
         android:layout_marginTop="5dp" />
 </LinearLayout>

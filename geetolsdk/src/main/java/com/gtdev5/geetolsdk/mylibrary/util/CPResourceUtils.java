@@ -18,7 +18,7 @@ public class CPResourceUtils {
         if (context != null) {
             mContext = context;
         } else {
-            Log.e(GTBaseSdk.TAG, "未初始化lib");
+            LogUtils.e(GTBaseSdk.TAG, "未初始化lib");
         }
     }
 

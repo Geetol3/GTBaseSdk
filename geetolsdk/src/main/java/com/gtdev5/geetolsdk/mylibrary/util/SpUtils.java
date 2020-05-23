@@ -42,7 +42,7 @@ public class SpUtils {
         if (mComtext == null) {
             mComtext = context;
         } else {
-            Log.e(GTBaseSdk.TAG, "未初始化lib");
+            LogUtils.e(GTBaseSdk.TAG, "未初始化lib");
             return;
         }
         mPref = PreferenceManager.getDefaultSharedPreferences(mComtext);

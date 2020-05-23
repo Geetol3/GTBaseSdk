@@ -4,8 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
-
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -21,6 +19,7 @@ import com.gtdev5.geetolsdk.mylibrary.util.CPResourceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.GsonUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.MapUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.Utils;
 
@@ -268,7 +267,7 @@ public class HttpUtils {
         RequestBody requestBody = null;
         FormBody.Builder builder = new FormBody.Builder();
         resultMap = sortMapByKey(map);
-        Log.e("请求参数：", "map:" + resultMap.toString());
+        LogUtils.e("请求参数(map)：", resultMap.toString());
         String str = "";
         int num = 0;
         boolean isFirst = true;
@@ -295,7 +294,7 @@ public class HttpUtils {
         }
         str = str.replace("\n", "");//去除换行
         str = str.replace("\\s", "");//去除空格
-        Log.e("请求参数：", "string:" + str);
+        LogUtils.e("请求参数(String)：", str);
         isFirst = !isFirst;
         alga.update(str.getBytes());
         /**
@@ -357,7 +356,7 @@ public class HttpUtils {
      * @param pway     支付类型    1:微信    2:支付宝
      * @param callback 回调函数
      */
-    public void PostOdOrder(int type, int pid, float amount, int pway, BaseCallback callback) {
+    public void postOrder(int type, int pid, float amount, int pway, BaseCallback callback) {
         post(API.getUrl(ApiConfig.getInstance().getCommand(API.ORDER_OD)),
                 MapUtils.getOrder(type, pid, amount, pway), callback);
     }
@@ -468,7 +467,7 @@ public class HttpUtils {
                             if (jsonObject.getBoolean("issucc")) {
                                 String data = jsonObject.getString("data");
                                 if (!TextUtils.isEmpty(data)) {
-                                    Log.e("哈哈", "阿里云数据：" + data);
+                                    LogUtils.e("阿里云", "阿里云数据：" + data);
                                     Utils.setAliOssParam(data);
                                 }
                             }
@@ -489,7 +488,7 @@ public class HttpUtils {
                             Utils.setLoginInfo("", "", "");
                         }
                     }
-                    Log.e("请求数据：", result);
+                    LogUtils.e("请求回调：", result);
                     if (callback.mType == String.class) {
                         //如果我们需要返回String类型
                         callbackSuccess(response, result, callback);
@@ -519,7 +518,7 @@ public class HttpUtils {
      */
     private Request getRequest(String url, Map<String, String> params) {
         //可以从这么划分get和post请求，暂时只支持post
-        Log.e("请求参数：", "url:" + url);
+        LogUtils.e("请求参数(url)：", url);
         return new Request.Builder().url(url).post(getRequestBody(params)).build();
     }
 

@@ -1,7 +1,6 @@
 package com.gtdev5.geetolsdk.mylibrary.util;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.gtdev5.geetolsdk.mylibrary.beans.Ads;
@@ -230,8 +229,6 @@ public class DataSaveUtils {
             try {
                 Date oldTime = CurrentTime.parse(vip.getCtime());
                 Date currentTime = CurrentTime.parse(time);
-                Log.e("Tag",
-                        "oldTime:" + oldTime.getTime() + ";currentTime:" + currentTime.getTime());
                 return oldTime.getTime() <= currentTime.getTime();
             } catch (ParseException e) {
                 e.printStackTrace();

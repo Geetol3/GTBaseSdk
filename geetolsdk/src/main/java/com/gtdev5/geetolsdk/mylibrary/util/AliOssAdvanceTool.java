@@ -275,10 +275,10 @@ public class AliOssAdvanceTool {
         }
         if (serviceException != null) {
             // 服务异常
-            Log.e("ErrorCode", serviceException.getErrorCode());
-            Log.e("RequestId", serviceException.getRequestId());
-            Log.e("HostId", serviceException.getHostId());
-            Log.e("RawMessage", serviceException.getRawMessage());
+            LogUtils.e("ErrorCode", serviceException.getErrorCode());
+            LogUtils.e("RequestId", serviceException.getRequestId());
+            LogUtils.e("HostId", serviceException.getHostId());
+            LogUtils.e("RawMessage", serviceException.getRawMessage());
         }
     }
 

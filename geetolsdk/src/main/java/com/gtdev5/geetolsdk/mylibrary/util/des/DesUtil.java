@@ -1,7 +1,8 @@
 package com.gtdev5.geetolsdk.mylibrary.util.des;
 
 import android.util.Base64;
-import android.util.Log;
+
+import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
 
 import java.security.Key;
 
@@ -37,7 +38,7 @@ public class DesUtil {
             Key key = keyFactory.generateSecret(dks);
             cipher.init(Cipher.ENCRYPT_MODE, key, iv);
             byte[] bytes = cipher.doFinal(data);
-            Log.e("base64", byteToBase64(bytes) + "");
+            LogUtils.e("base64", byteToBase64(bytes) + "");
             return byteToBase64(bytes);
         } catch (Exception e) {
             return null;

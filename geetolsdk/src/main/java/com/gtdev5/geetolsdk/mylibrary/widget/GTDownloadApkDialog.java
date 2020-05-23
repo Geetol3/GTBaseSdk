@@ -10,7 +10,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import com.gtdev5.geetolsdk.R;
 import com.gtdev5.geetolsdk.mylibrary.beans.GetNewBean;
 import com.gtdev5.geetolsdk.mylibrary.util.GTDownloadUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.ToastUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.Utils;
 
@@ -62,7 +62,7 @@ public class GTDownloadApkDialog extends BaseDialog {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     } catch (Exception e) {
-                        Log.e("安装失败", e.toString());
+                        LogUtils.e("安装失败", e.toString());
                         if (!TextUtils.isEmpty(mGetNewBean.getDownurl())) {
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_VIEW);
