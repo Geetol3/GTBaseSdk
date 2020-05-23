@@ -2,8 +2,10 @@ package com.gtdev5.geetolsdk.mylibrary.util;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 
 import com.gtdev5.geetolsdk.mylibrary.beans.XResp;
+import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
 import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Decoder;
 import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Encoder;
 
@@ -105,5 +107,16 @@ public class DesUtils {
         String hostConfig = getFromAssets(context, fileName);
         String result = decode(hostConfig, fileName.substring(0, 8), fileName.substring(0, 8));
         return GsonUtils.getFromClass(result, XResp.class);
+    }
+
+    /**
+     * 获取解码回调
+     */
+    public static String getResult(String data) throws Exception {
+        String fileName = SpUtils.getInstance().getString(Contants.FILE_NAME);
+        if (!TextUtils.isEmpty(fileName)) {
+            return decode(data, fileName.substring(0, 8), fileName.substring(0, 8));
+        }
+        return "";
     }
 }

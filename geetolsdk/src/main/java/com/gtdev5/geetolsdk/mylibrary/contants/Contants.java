@@ -46,4 +46,8 @@ public class Contants {
      * 首次调用注册
      */
     public static final String FIRST_REGISTER = "geetol_first_register";
+    /**
+     * 文件名称
+     */
+    public static final String FILE_NAME = "geetol_file_name";
 }

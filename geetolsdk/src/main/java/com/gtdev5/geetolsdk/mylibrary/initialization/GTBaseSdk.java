@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.gtdev5.geetolsdk.mylibrary.beans.XResp;
 import com.gtdev5.geetolsdk.mylibrary.contants.ApiConfig;
+import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
 import com.gtdev5.geetolsdk.mylibrary.util.CPResourceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DesUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
@@ -56,6 +57,7 @@ public class GTBaseSdk {
      */
     public static void init(Context context, String fileName, boolean showLog, boolean saveLog, String logFile, String logName) {
         init(context);
+        SpUtils.getInstance().putString(Contants.FILE_NAME, fileName);
         LogUtils.getInstance() // 单例获取LogCook实例
                 .setLogPath(logFile) //设置日志保存路径
                 .setLogName(logName) //设置日志文件名

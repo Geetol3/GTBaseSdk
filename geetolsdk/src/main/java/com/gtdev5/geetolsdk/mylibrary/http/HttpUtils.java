@@ -17,6 +17,7 @@ import com.gtdev5.geetolsdk.mylibrary.contants.API;
 import com.gtdev5.geetolsdk.mylibrary.contants.ApiConfig;
 import com.gtdev5.geetolsdk.mylibrary.util.CPResourceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DataSaveUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.DesUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.DeviceUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.GsonUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.LogUtils;
@@ -451,56 +452,61 @@ public class HttpUtils {
                 if (response.isSuccessful()) {
                     //返回成功回调
                     String result = response.body().string();
-                    if (requestType.equals(API.USER_LOGIN_CODE)) {
-                        // 保存用户信息
-                        DataResultBean info = GsonUtils.getFromClass(result, DataResultBean.class);
-                        if (info != null && info.isIssucc()) {
-                            LoginInfo loginInfo = GsonUtils.getFromClass(info.getData().toString(), LoginInfo.class);
-                            Utils.setLoginInfo(loginInfo.getUser_id(),
-                                    loginInfo.getUkey(),
-                                    loginInfo.getHeadimg());
-                        }
-                    } else if (requestType.equals(API.GET_ALIOSS)) {
-                        // 获取阿里云信息
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-                            if (jsonObject.getBoolean("issucc")) {
-                                String data = jsonObject.getString("data");
-                                if (!TextUtils.isEmpty(data)) {
-                                    LogUtils.e("阿里云", "阿里云数据：" + data);
-                                    Utils.setAliOssParam(data);
-                                }
+                    try {
+                        result = DesUtils.getResult(result);
+                        LogUtils.e("请求回调：", result);
+                        if (requestType.equals(API.USER_LOGIN_CODE)) {
+                            // 保存用户信息
+                            DataResultBean info = GsonUtils.getFromClass(result, DataResultBean.class);
+                            if (info != null && info.isIssucc()) {
+                                LoginInfo loginInfo = GsonUtils.getFromClass(info.getData().toString(), LoginInfo.class);
+                                Utils.setLoginInfo(loginInfo.getUser_id(),
+                                        loginInfo.getUkey(),
+                                        loginInfo.getHeadimg());
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        } else if (requestType.equals(API.GET_ALIOSS)) {
+                            // 获取阿里云信息
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                if (jsonObject.getBoolean("issucc")) {
+                                    String data = jsonObject.getString("data");
+                                    if (!TextUtils.isEmpty(data)) {
+                                        LogUtils.e("阿里云", "阿里云数据：" + data);
+                                        Utils.setAliOssParam(data);
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (requestType.equals(API.UPDATE)) {
+                            // 获取所有数据
+                            UpdateBean updateBean = GsonUtils.getFromClass(result, UpdateBean.class);
+                            if (updateBean != null) {
+                                DataSaveUtils.getInstance().saveAppData(updateBean);
+                            }
+                        } else if (requestType.equals(API.USER_LOGIN_CHECK)) {
+                            // 校验登陆
+                            ResultBean resultBean = GsonUtils.getFromClass(result, ResultBean.class);
+                            if (resultBean != null && !resultBean.isIssucc()) {
+                                // 已在别的设备登陆，清空本机登陆状态
+                                Utils.setLoginInfo("", "", "");
+                            }
                         }
-                    } else if (requestType.equals(API.UPDATE)) {
-                        // 获取所有数据
-                        UpdateBean updateBean = GsonUtils.getFromClass(result, UpdateBean.class);
-                        if (updateBean != null) {
-                            DataSaveUtils.getInstance().saveAppData(updateBean);
+                        if (callback.mType == String.class) {
+                            //如果我们需要返回String类型
+                            callbackSuccess(response, result, callback);
+                        } else {
+                            //如果返回是其他类型,则用Gson去解析
+                            try {
+                                Object o = gson.fromJson(result, callback.mType);
+                                callbackSuccess(response, o, callback);
+                            } catch (JsonSyntaxException e) {
+                                e.printStackTrace();
+                                callbackError(response, callback, e);
+                            }
                         }
-                    } else if (requestType.equals(API.USER_LOGIN_CHECK)) {
-                        // 校验登陆
-                        ResultBean resultBean = GsonUtils.getFromClass(result, ResultBean.class);
-                        if (resultBean != null && !resultBean.isIssucc()) {
-                            // 已在别的设备登陆，清空本机登陆状态
-                            Utils.setLoginInfo("", "", "");
-                        }
-                    }
-                    LogUtils.e("请求回调：", result);
-                    if (callback.mType == String.class) {
-                        //如果我们需要返回String类型
-                        callbackSuccess(response, result, callback);
-                    } else {
-                        //如果返回是其他类型,则用Gson去解析
-                        try {
-                            Object o = gson.fromJson(result, callback.mType);
-                            callbackSuccess(response, o, callback);
-                        } catch (JsonSyntaxException e) {
-                            e.printStackTrace();
-                            callbackError(response, callback, e);
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 } else {
                     callbackError(response, callback, null);
