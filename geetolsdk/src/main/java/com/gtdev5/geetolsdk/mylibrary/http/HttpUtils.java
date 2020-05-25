@@ -176,9 +176,6 @@ public class HttpUtils {
                 for (Map.Entry<String, String> entry : resultMap.entrySet()) {
                     String key = entry.getKey();
                     String value = entry.getValue();
-                    if (value == null) {
-                        value = null;
-                    }
                     if (key.equals("sign")) {
                         value = Utils.byte2hex(alga.digest());
                     } else if (key.equals("key")) {
@@ -301,18 +298,23 @@ public class HttpUtils {
         /**
          * 循环遍历value值，添加到表单
          */
-        for (Map.Entry<String, String> entry : resultMap.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (value == null) {
-                value = null;
+        try {
+            for (Map.Entry<String, String> entry : resultMap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (value != null && !key.equals("sign")) {
+                    value = DesUtils.getRequest(value);
+                }
+                if (key.equals("sign")) {
+                    value = Utils.byte2hex(alga.digest());
+                    value = DesUtils.getRequest(value);
+                } else if (key.equals("key")) {
+                    continue;
+                }
+                builder.add(key, value);
             }
-            if (key.equals("sign")) {
-                value = Utils.byte2hex(alga.digest());
-            } else if (key.equals("key")) {
-                continue;
-            }
-            builder.add(key, value);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         requestBody = builder.build();
         return requestBody;

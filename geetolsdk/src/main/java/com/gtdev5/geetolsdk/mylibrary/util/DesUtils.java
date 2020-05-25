@@ -11,6 +11,7 @@ import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Encoder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.Base64;
 
@@ -107,6 +108,18 @@ public class DesUtils {
         String hostConfig = getFromAssets(context, fileName);
         String result = decode(hostConfig, fileName.substring(0, 8), fileName.substring(0, 8));
         return GsonUtils.getFromClass(result, XResp.class);
+    }
+
+    /**
+     * 获取加密传参值
+     */
+    public static String getRequest(String data) throws Exception {
+        String fileName = SpUtils.getInstance().getString(Contants.FILE_NAME);
+        if (!TextUtils.isEmpty(fileName)) {
+            String result = encode(data, fileName.substring(0, 8), fileName.substring(0, 8));
+            return URLEncoder.encode(result, "utf-8");
+        }
+        return "";
     }
 
     /**
