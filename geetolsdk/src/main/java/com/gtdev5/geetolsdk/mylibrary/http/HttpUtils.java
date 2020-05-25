@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -262,7 +264,6 @@ public class HttpUtils {
      * 得到from表单 (post请求)
      */
     private RequestBody getRequestBody(Map<String, String> map) {
-        RequestBody requestBody = null;
         FormBody.Builder builder = new FormBody.Builder();
         resultMap = sortMapByKey(map);
         LogUtils.e("请求参数(map)：", resultMap.toString());
@@ -279,12 +280,12 @@ public class HttpUtils {
             num++;
             if (isFirst) {
                 str += entry.getKey() + "=" + Base64.encodeToString(entry.getValue().getBytes(),
-                        Base64.DEFAULT).trim();
-                isFirst = !isFirst;
+                        Base64.NO_WRAP).trim();
+                isFirst = false;
             } else {
                 str = str.trim();
                 str += "&" + entry.getKey() + "=" + Base64.encodeToString(entry.getValue().getBytes(),
-                        Base64.DEFAULT).trim();
+                        Base64.NO_WRAP).trim();
                 if (num == resultMap.size() - 1) {
                     str += "&" + "key" + "=" + CPResourceUtils.getString("appkey");
                 }
@@ -293,31 +294,31 @@ public class HttpUtils {
         str = str.replace("\n", "");//去除换行
         str = str.replace("\\s", "");//去除空格
         LogUtils.e("请求参数(String)：", str);
-        isFirst = !isFirst;
         alga.update(str.getBytes());
         /**
          * 循环遍历value值，添加到表单
          */
+        StringBuilder stringBuilder = new StringBuilder();
+        String requestString = "";
         try {
             for (Map.Entry<String, String> entry : resultMap.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                if (value != null && !key.equals("sign")) {
-                    value = DesUtils.getRequest(value);
-                }
                 if (key.equals("sign")) {
                     value = Utils.byte2hex(alga.digest());
-                    value = DesUtils.getRequest(value);
                 } else if (key.equals("key")) {
                     continue;
                 }
+                stringBuilder.append(key).append("=").append(value).append("&");
                 builder.add(key, value);
             }
+            requestString = stringBuilder.substring(0, stringBuilder.length() - 1);
+            requestString = DesUtils.getRequest(requestString);
+            LogUtils.e("请求加密：", requestString);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        requestBody = builder.build();
-        return requestBody;
+        return RequestBody.create(MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"), requestString);
     }
 
     /**
