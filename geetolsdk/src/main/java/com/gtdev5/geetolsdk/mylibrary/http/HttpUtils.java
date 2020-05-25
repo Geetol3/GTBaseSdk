@@ -4,11 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.gtdev5.geetolsdk.mylibrary.beans.DataResultBean;
 import com.gtdev5.geetolsdk.mylibrary.beans.LoginInfo;
 import com.gtdev5.geetolsdk.mylibrary.beans.ResultBean;
 import com.gtdev5.geetolsdk.mylibrary.beans.UpdateBean;
@@ -460,12 +458,18 @@ public class HttpUtils {
                         LogUtils.e("请求回调：", result);
                         if (requestType.equals(API.USER_LOGIN_CODE)) {
                             // 保存用户信息
-                            DataResultBean info = GsonUtils.getFromClass(result, DataResultBean.class);
-                            if (info != null && info.isIssucc()) {
-                                LoginInfo loginInfo = GsonUtils.getFromClass(info.getData().toString(), LoginInfo.class);
-                                Utils.setLoginInfo(loginInfo.getUser_id(),
-                                        loginInfo.getUkey(),
-                                        loginInfo.getHeadimg());
+                            JSONObject jsonObject;
+                            try {
+                                jsonObject = new JSONObject(result);
+                                if (jsonObject.getBoolean("issucc")) {
+                                    String data = jsonObject.getString("data");
+                                    LoginInfo loginInfo = GsonUtils.getFromClass(data, LoginInfo.class);
+                                    Utils.setLoginInfo(loginInfo.getUser_id(),
+                                            loginInfo.getUkey(),
+                                            loginInfo.getHeadimg());
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         } else if (requestType.equals(API.GET_ALIOSS)) {
                             // 获取阿里云信息
