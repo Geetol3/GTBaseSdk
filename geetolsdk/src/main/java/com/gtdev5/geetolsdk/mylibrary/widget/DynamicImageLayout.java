@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-//import com.geetol.watercamera.utils.GlideEngine;
 import com.gtdev5.geetolsdk.mylibrary.util.ImageLoader;
 
 import java.util.List;
@@ -161,7 +160,6 @@ public class DynamicImageLayout extends ViewGroup {
         }
         for (int i = 0; i < imageUrls.size(); i++) {
             ImageView imageView = new ImageView(getContext());
-            // GlideEngine.getInstance().loadPhoto(getContext(), imageUrls.get(i), imageView);
             ImageLoader.getInstance().loadImage(getContext(), imageView, imageUrls.get(i));
             addView(imageView);
             //点击查看大图

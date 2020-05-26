@@ -7,12 +7,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
-
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by zl
@@ -41,9 +38,10 @@ public class ImageLoader {
      * 基本的图片加载
      */
     public <T> void loadImage(Context context, ImageView imageView, T imaUrl) {
-        Glide.with(context).load(imaUrl).crossFade()        //设置淡入淡出效果,默认300ms,可以传参
+        RequestOptions options = new RequestOptions()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context).load(imaUrl).apply(options).into(imageView);
     }
 
     /**
@@ -57,36 +55,15 @@ public class ImageLoader {
      * @param isFade    是否需要动画
      */
     public <T> void loadImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg, boolean isFade) {
-        if (isFade) {
-            Glide.with(context)//可以设置是否走生命周期
-                    .load(imgUrl)//图片路径
-                    .placeholder(loadImg)//加载的时候显示的图片
-                    .error(errorImg)//失败的时候显示的图片
-                    .crossFade()        //设置淡入淡出效果,默认300ms,可以传参
-                    /**
-                     *  下载优先级别:
-                     * IMMEDIATE        //中等
-                     * HIGH             //最高
-                     * NORMAL           //默认
-                     * LOW,priority     //最低
-                     */
-                    .priority(Priority.NORMAL)
-                    /**
-                     *      缓存策略:
-                     * ALL      缓存资源和转换后的资源
-                     * NONE     不做任何缓存
-                     * SOURCE   缓存资源文件
-                     * RESULT   缓存转换后的资源
-                     */
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .into(imageView);
-        } else {
-            Glide.with(context)
-                    .load(imgUrl)
-                    .placeholder(loadImg)
-                    .error(errorImg)
-                    .into(imageView);
-        }
+        RequestOptions options = new RequestOptions()
+                .placeholder(loadImg)
+                .error(errorImg)
+                .priority(Priority.NORMAL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
+                .into(imageView);
     }
 
     /**
@@ -99,13 +76,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadThumbnailImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .thumbnail(Contants.THUMB_SIZE)
                 .into(imageView);
     }
@@ -122,14 +100,15 @@ public class ImageLoader {
      * @param errorImg   失败时显示的图片(可空)
      */
     public <T> void loadOverrideImage(Context context, ImageView imageView, T imgUrl, int withSize, int heightSize, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(withSize, heightSize)
+                .override(withSize, heightSize);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -143,14 +122,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadBlurImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new BlurTransformation(context, Contants.BLUR_VALUE))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -164,14 +143,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadCircleImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new CropCircleTransformation(context))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -185,15 +164,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadBlurCircleImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new BlurTransformation(context, Contants.BLUR_VALUE)
-                        , new CropCircleTransformation(context))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -207,14 +185,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadCornerImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg, int Padius) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new RoundedCornersTransformation(context, Padius, Padius))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -228,15 +206,14 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadBlurCornerImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .bitmapTransform(new BlurTransformation(context, Contants.BLUR_VALUE)
-                        , new RoundedCornersTransformation(context, Contants.CORNER_PADIUS, Contants.CORNER_PADIUS))
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -250,14 +227,15 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadGifImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
-                .asGif()
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
-                .crossFade()
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .asGif()
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -271,14 +249,15 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public <T> void loadGifThumbnailImage(Context context, ImageView imageView, T imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
-                .asGif()
-                .crossFade()
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .asGif()
+                .load(imgUrl)
+                .apply(options)
                 .thumbnail(Contants.THUMB_SIZE)
                 .into(imageView);
     }
@@ -293,13 +272,15 @@ public class ImageLoader {
      * @param errorImg  失败时显示的图片(可空)
      */
     public void loadGifBitmapImage(Context context, ImageView imageView, String imgUrl, int loadImg, int errorImg) {
-        Glide.with(context)
-                .load(imgUrl)
-                .asBitmap()
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .asBitmap()
+                .load(imgUrl)
+                .apply(options)
                 .into(imageView);
     }
 
@@ -313,13 +294,15 @@ public class ImageLoader {
      * @param target   回调接口
      */
     public void loadBitmapSync(Context context, String imgUrl, int loadImg, int errorImg, SimpleTarget<Bitmap> target) {
-        Glide.with(context)
-                .load(imgUrl)
-                .asBitmap()
+        RequestOptions options = new RequestOptions()
                 .placeholder(loadImg)
                 .error(errorImg)
                 .priority(Priority.NORMAL)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(context)
+                .asBitmap()
+                .load(imgUrl)
+                .apply(options)
                 .into(target);
     }
 
