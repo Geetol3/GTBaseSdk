@@ -6,8 +6,6 @@ import android.text.TextUtils;
 
 import com.gtdev5.geetolsdk.mylibrary.beans.XResp;
 import com.gtdev5.geetolsdk.mylibrary.contants.Contants;
-import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Decoder;
-import com.gtdev5.geetolsdk.mylibrary.util.des.BASE64Encoder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -58,8 +56,7 @@ public class DesUtils {
         if (Build.VERSION.SDK_INT >= 26) {
             return Base64.getMimeEncoder().encodeToString(pasByte);
         } else {
-            BASE64Encoder base64Encoder = new BASE64Encoder();
-            return base64Encoder.encode(pasByte);
+            return android.util.Base64.encodeToString(pasByte, android.util.Base64.DEFAULT);
         }
     }
 
@@ -73,8 +70,7 @@ public class DesUtils {
         if (Build.VERSION.SDK_INT >= 26) {
             pasByte = deCipher.doFinal(Base64.getMimeDecoder().decode(data));
         } else {
-            BASE64Decoder base64Decoder = new BASE64Decoder();
-            pasByte = deCipher.doFinal(base64Decoder.decodeBuffer(data));
+            pasByte = deCipher.doFinal(android.util.Base64.decode(data.getBytes(ENCODING), android.util.Base64.DEFAULT));
         }
         return new String(pasByte, ENCODING);
     }
