@@ -1,6 +1,7 @@
 package com.gtdev5.geetolsdk.mylibrary.widget;
 
 import android.animation.AnimatorSet;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -191,6 +192,26 @@ public class GTDownloadApkDialog extends BaseDialog {
             });
         } else {
             ToastUtils.showShortToast("当前网络不可用，请检查网络");
+        }
+    }
+
+    @Override
+    public void show() {
+        if (mContext != null) {
+            Activity activity = (Activity) mContext;
+            if (!activity.isFinishing()) {
+                super.show();
+            }
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        if (mContext != null) {
+            Activity activity = (Activity) mContext;
+            if (!activity.isFinishing()) {
+                super.dismiss();
+            }
         }
     }
 

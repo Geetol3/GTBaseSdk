@@ -84,7 +84,22 @@ public class CenterDialog extends AlertDialog implements View.OnClickListener {
 
     @Override
     public void show() {
-        super.show();
+        if (context != null) {
+            Activity activity = (Activity) context;
+            if (!activity.isFinishing()) {
+                super.show();
+            }
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        if (context != null) {
+            Activity activity = (Activity) context;
+            if (!activity.isFinishing()) {
+                super.dismiss();
+            }
+        }
     }
 
     @Override
