@@ -48,16 +48,24 @@ public class DeviceUtils {
                         == PackageManager.PERMISSION_GRANTED) {
                     try {
                         // 适配双卡情况
-                        Method method = tm.getClass().getMethod("getImei", int.class);
-                        if (!TextUtils.isEmpty((String) method.invoke(tm, 0))) {
-                            return (String) method.invoke(tm, 0);
+                        if (tm != null) {
+                            Method method = tm.getClass().getMethod("getImei", int.class);
+                            if (!TextUtils.isEmpty((String) method.invoke(tm, 0))) {
+                                return (String) method.invoke(tm, 0);
+                            } else {
+                                return getUUID();
+                            }
                         } else {
                             return getUUID();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        if (!TextUtils.isEmpty(tm.getDeviceId())) {
-                            return tm.getDeviceId();
+                        if (tm != null) {
+                            if (!TextUtils.isEmpty(tm.getDeviceId())) {
+                                return tm.getDeviceId();
+                            } else {
+                                return getUUID();
+                            }
                         } else {
                             return getUUID();
                         }

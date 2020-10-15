@@ -45,7 +45,7 @@ public class MapUtils {
     public static Map<String, String> getRegistMap() {
         Map<String, String> map = new HashMap<>();
         map.putAll(getCurrencyMap());
-        map.put("mac", MacUtils.getMacAddr(mContext));
+        map.put("mac", "");
         map.put("brand", SystemUtils.getDeviceBrand());
         map.put("model", SystemUtils.getSystemModel());
         map.put("widthpix", SystemUtils.getWith(mContext) + "");
