@@ -1,5 +1,6 @@
 package com.gtdev5.geetolsdk.mylibrary.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -34,7 +35,10 @@ public class ToastUtils {
         } else {
             mToast = Toast.makeText(mContext, msg, Toast.LENGTH_SHORT);
         }
-        mToast.show();
+        Activity activity = (Activity) mContext;
+        if (activity != null && !activity.isFinishing()) {
+            mToast.show();
+        }
     }
 
     /**
@@ -46,6 +50,9 @@ public class ToastUtils {
         } else {
             mToast = Toast.makeText(mContext, msg, Toast.LENGTH_LONG);
         }
-        mToast.show();
+        Activity activity = (Activity) mContext;
+        if (activity != null && !activity.isFinishing()) {
+            mToast.show();
+        }
     }
 }

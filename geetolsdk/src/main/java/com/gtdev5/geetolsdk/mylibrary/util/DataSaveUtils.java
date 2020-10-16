@@ -130,7 +130,7 @@ public class DataSaveUtils {
         if (updateBean != null) {
             return updateBean.getHpurl();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -140,7 +140,7 @@ public class DataSaveUtils {
         if (updateBean != null) {
             return updateBean.getShare_url();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -161,7 +161,7 @@ public class DataSaveUtils {
         if (contract != null && !TextUtils.isEmpty(contract.getTxt())) {
             return contract.getTxt();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -172,7 +172,7 @@ public class DataSaveUtils {
         if (contract != null && !TextUtils.isEmpty(contract.getNum())) {
             return contract.getNum();
         }
-        return null;
+        return "";
     }
 
     /**
@@ -214,7 +214,7 @@ public class DataSaveUtils {
                 }
             }
         }
-        return null;
+        return "";
     }
 
     /**
@@ -254,7 +254,7 @@ public class DataSaveUtils {
         if (updateBean != null) {
             return updateBean.getIp();
         }
-        return null;
+        return "";
     }
 
 }

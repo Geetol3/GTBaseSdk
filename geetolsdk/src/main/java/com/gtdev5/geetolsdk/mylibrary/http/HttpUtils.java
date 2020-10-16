@@ -452,8 +452,8 @@ public class HttpUtils {
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     //返回成功回调
-                    String result = response.body().string();
                     try {
+                        String result = response.body().string();
                         result = DesUtils.getResult(result);
                         LogUtils.e("请求回调：", result);
                         if (requestType.equals(API.USER_LOGIN_CODE)) {
